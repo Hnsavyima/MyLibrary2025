@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Fiche d'un artiste</title>
+</head>
+<body>
+    <div class="container">
+        <div id="notification" th:replace="~{main :: notification}"></div>
+        <div layout:fragment="content">
+            <h2 th:text="|${artist.firstname} ${artist.lastname}|">Bob Sull</h2>
+
+            <div>
+                <p>
+                    <strong>Troupe :</strong>
+                    <span th:if="${artist.troupe != null}" th:text="${artist.troupe.name}">Nom troupe</span>
+                    <span th:if="${artist.troupe == null}">Non affilié</span>
+                </p>
+                <p th:if="${artist.troupe != null && artist.troupe.logoUrl != null}">
+                    <img th:src="${artist.troupe.logoUrl}" alt="Logo de la troupe" width="50">
+                </p>
+            </div>
+
+            <div sec:authorize="hasRole('ADMIN')">
+                <h3>Affiliation à une troupe</h3>
+                <form th:action="@{/artists/{id}/affiliate(id=${artist.id})}" method="post">
+                    <div>
+                        <label for="troupeId">Troupe :</label>
+                        <select id="troupeId" name="troupeId">
+                            <option value="">Non affilié</option>
+                            <option th:each="troupe : ${troupes}"
+                                    th:value="${troupe.id}"
+                                    th:text="${troupe.name}"
+                                    th:selected="${artist.troupe != null && artist.troupe.id == troupe.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit">Mettre à jour l'affiliation</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="actions">
+                <a th:href="@{/artists/{id}/edit(id=${artist.id})}">Edit</a>
+                <form th:id="|deleteForm-${artist.id}|"
+                      th:action="@{/artists/{id}(id=${artist.id})}" th:method="delete">
+                    <a href="#" th:onclick="|if(confirm('Confirm delete artist #${artist.id}'))
+                        document.getElementById('deleteForm-${artist.id}').submit();
+                        return false;|">Delete</a>
+                </form>
+            </div>
+
+            <nav><a th:href="@{/artists}">Retour à l'index</a></nav>
+        </div>
+    </div>
+</body>
+</html>
