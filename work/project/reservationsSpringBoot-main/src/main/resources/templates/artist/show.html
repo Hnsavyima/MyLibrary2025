@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Détail artiste</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="${artist.firstname + ' ' + artist.lastname}">Artiste</h1>
+    <h4>Types</h4>
+    <ul th:unless="${#lists.isEmpty(artist.types)}">
+        <li th:each="type : ${artist.types}" th:text="${type.type}">Type</li>
+    </ul>
+    <a th:href="@{/artists}" class="btn btn-secondary">Retour</a>
+</div>
+</body>
+</html>

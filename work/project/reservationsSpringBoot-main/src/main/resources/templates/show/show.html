@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Représentations du spectacle</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="${show.title}">Spectacle</h1>
+    <p th:text="${show.description}">Description</p>
+
+    <h3>Liste des représentations</h3>
+    <table class="table table-striped" th:unless="${#lists.isEmpty(representations)}">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Lieu</th>
+                <th>Salle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="repr : ${representations}">
+                <td th:text="${#temporals.format(repr.date, 'dd/MM/yyyy')}">Date</td>
+                <td th:text="${#temporals.format(repr.hour, 'HH:mm')}">Heure</td>
+                <td th:text="${repr.room.location.name}">Lieu</td>
+                <td th:text="${repr.room.name}">Salle</td>
+            </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(representations)}">Aucune représentation programmée.</p>
+
+    <a th:href="@{/shows}" class="btn btn-secondary mt-3">Retour</a>
+</div>
+</body>
+</html>

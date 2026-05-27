@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Liste des spectacles</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="${title}">Liste des spectacles</h1>
+
+    <table class="table table-striped" th:unless="${#lists.isEmpty(shows)}">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="show : ${shows}">
+                <td th:text="${show.title}">Titre</td>
+                <td th:text="${show.description}">Description</td>
+                <td>
+                    <a th:href="@{/shows/{id}(id=${show.id})}" class="btn btn-sm btn-info">Voir les représentations</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(shows)}">Aucun spectacle trouvé.</p>
+</div>
+</body>
+</html>

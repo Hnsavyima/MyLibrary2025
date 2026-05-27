@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Liste des lieux</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="${title}">Liste des lieux de spectacle</h1>
+
+    <table class="table table-striped" th:unless="${#lists.isEmpty(locations)}">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="location : ${locations}">
+                <td th:text="${location.name}">Lieu</td>
+                <td th:text="${location.address}">Adresse</td>
+                <td>
+                    <a th:href="@{/locations/{id}(id=${location.id})}" class="btn btn-sm btn-info">Voir les salles</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(locations)}">Aucun lieu trouvé.</p>
+</div>
+</body>
+</html>

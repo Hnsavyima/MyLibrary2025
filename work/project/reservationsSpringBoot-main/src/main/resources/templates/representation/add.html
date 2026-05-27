@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Ajouter une représentation</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Ajouter une représentation</h1>
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <form th:action="@{/representations/add}" method="post">
+        <div class="mb-3">
+            <label for="showId" class="form-label">Spectacle</label>
+            <select class="form-select" id="showId" name="showId" required>
+                <option value="">-- Choisir un spectacle --</option>
+                <option th:each="show : ${shows}"
+                        th:value="${show.id}"
+                        th:text="${show.title}">Spectacle</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="roomId" class="form-label">Salle</label>
+            <select class="form-select" id="roomId" name="roomId" required>
+                <option value="">-- Choisir une salle --</option>
+                <option th:each="room : ${rooms}"
+                        th:value="${room.id}"
+                        th:text="${room.name + ' (' + room.location.name + ') - ' + room.seats + ' places'}">Salle</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <div class="mb-3">
+            <label for="hour" class="form-label">Heure</label>
+            <input type="time" class="form-control" id="hour" name="hour" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <a th:href="@{/shows}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+</body>
+</html>

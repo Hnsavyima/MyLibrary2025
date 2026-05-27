@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Accueil</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Bienvenue sur le site de réservations</h1>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Spectacles</h5>
+                    <a th:href="@{/shows}" class="btn btn-primary">Voir les spectacles</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Lieux</h5>
+                    <a th:href="@{/locations}" class="btn btn-primary">Voir les lieux</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Artistes</h5>
+                    <a th:href="@{/artists}" class="btn btn-primary">Voir les artistes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
